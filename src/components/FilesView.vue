@@ -95,16 +95,24 @@
             showDialog(item) {
                 this.dialog = true;
                 this.parentItem = item;
-                console.log(this.parentItem)
             },
             createNewFile() {
-                this.parentItem.children.push({
-                    children: [],
-                    file: this.parentItem.file + '/' + this.newFilename,
-                    izFile: this.radioGroup === 'file',
-                    name: this.newFilename
+                const filename = this.parentItem.file + '/' + this.newFilename;
+                const isFile = this.radioGroup === 'file';
+                this.$http.post('http://localhost:8080/create', {
+                    filename: filename,
+                    isFile: isFile
+                }).then(response => {
+                    this.parentItem.children.push({
+                        children: [],
+                        file: filename,
+                        izFile: isFile,
+                        name: this.newFilename
+                    })
+
+                }, response => {
+                    console.log(response)
                 });
-                this.newFilename = ''
             }
         },
     }
