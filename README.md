@@ -1,5 +1,6 @@
 # file-browser-client
-
+## Overview
+![](./Example.gif)
 ## Project setup
 ```
 npm install
